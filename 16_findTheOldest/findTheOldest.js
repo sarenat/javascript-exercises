@@ -1,17 +1,12 @@
 const findTheOldest = function(arr) {
     let oldestIndex = 0;
-    let prevAge = 0;
     
-    for (let i = 0; i < arr.length; i++) {
-        if (typeof(arr[i].yearOfDeath) == 'number' && typeof(arr[i].yearOfBirth == 'number')) {
-            if (i > 0 && 
-                typeof(arr[i-1].yearOfDeath) == 'number' && 
-                typeof(arr[i-1].yearOfBirth == 'number')) {
-                    prevAge = arr[i-1].yearOfDeath - arr[i-1].yearOfBirth;
-                }
-            if (arr[i].yearOfDeath - arr[i].yearOfBirth > prevAge) oldestIndex = i;
-        }
-    }
+    let ages = arr.map(item => item.yearOfDeath - item.yearOfBirth);
+    for (let i = 0; i < ages.length; i++) {
+        if (isNaN(ages[i])) ages[i] = 0;
+        if (ages[i] > ages[oldestIndex]) oldestIndex = i;
+    };
+
     return(arr[oldestIndex]);
 };
 
